@@ -5,27 +5,43 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  TextInput,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import {Colors} from '../utils/colors';
 
-const ModalFilterSize = ({onClose}) => {
-  // generate static array
-  const listOfSize = Array.from({length: 19}, (_, i) => i * 10 + 20);
+const ModalFilterRegion = ({onClose}) => {
+  const listOfRegion = [
+    'Aceh, Simeulue',
+    'Aceh, Simeulue, Tupah Selatan',
+    'Aceh, Simeulue, Tupah Selatan, Labuhan Bajau',
+    'Aceh, Simeulue, Tupah Selatan, Pulau Bengkalak',
+    'Aceh, Simeulue, Tupah Selatan, Badegong',
+    'Aceh, Simeulue, Tupah Selatan, Kebun Baru',
+    'Aceh, Simeulue, Tupah Selatan, Ulul Mayang',
+  ];
 
   return (
     <View style={styles.container}>
       <View style={styles.backdrop} />
       <View style={styles.contanerStackContent}>
         <View style={styles.secondBackdrop} />
-        <View style={styles.containerContent}>
+        <KeyboardAvoidingView
+          style={styles.containerContent}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <View style={styles.header}>
-            <Text style={styles.title}>Size</Text>
+            <Text style={styles.title}>Kota/kabupaten</Text>
             <TouchableOpacity onPress={onClose} style={styles.buttonClose}>
               <Text style={styles.labelCancel}>Tutup</Text>
             </TouchableOpacity>
           </View>
+          <View style={styles.containerInput}>
+            <TextInput placeholder="Cari" />
+          </View>
+          <View style={styles.divider} />
           <ScrollView>
-            {listOfSize.map(size => (
+            {listOfRegion.map(size => (
               <TouchableOpacity
                 key={size.toString()}
                 style={styles.containerSizeItem}>
@@ -33,7 +49,7 @@ const ModalFilterSize = ({onClose}) => {
               </TouchableOpacity>
             ))}
           </ScrollView>
-        </View>
+        </KeyboardAvoidingView>
       </View>
     </View>
   );
@@ -48,7 +64,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     opacity: 0.5,
   },
-  secondBackdrop: {height: 100},
+  secondBackdrop: {height: 145},
   contanerStackContent: {
     position: 'absolute',
     right: 0,
@@ -59,7 +75,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    borderBottomWidth: 1,
+
     borderColor: '#EFEFEF',
   },
   containerContent: {
@@ -87,5 +103,18 @@ const styles = StyleSheet.create({
     color: '#2477DF',
     fontWeight: '600',
   },
+  divider: {
+    height: 1,
+    backgroundColor: '#E9E9E9',
+  },
+  containerInput: {
+    borderWidth: 1,
+    borderColor: '#E5E5E5',
+    marginHorizontal: 16,
+    paddingVertical: 8,
+    paddingHorizontal: 6,
+    borderRadius: 5,
+    marginBottom: 8,
+  },
 });
-export default ModalFilterSize;
+export default ModalFilterRegion;

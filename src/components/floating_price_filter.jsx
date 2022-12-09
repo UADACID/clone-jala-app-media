@@ -1,12 +1,19 @@
 import React, {useState} from 'react';
 import {Text, View, StyleSheet, Modal, TouchableOpacity} from 'react-native';
+import ModalFilterRegion from './modal_filter_region';
 import ModalFilterSize from './modal_filter_size';
 
 const FloatingPriceFilter = () => {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalFilterSizeVisible, setModalFilterSizeVisible] = useState(false);
+  const [modalFilterRegionVisible, setModalFilterRegionVisible] =
+    useState(false);
 
   const onPressSize = () => {
-    setModalVisible(true);
+    setModalFilterSizeVisible(true);
+  };
+
+  const onPressRegion = () => {
+    setModalFilterRegionVisible(true);
   };
 
   return (
@@ -17,19 +24,36 @@ const FloatingPriceFilter = () => {
         onPress={onPressSize}>
         <Text style={styles.label}>Size</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.containerRegion} activeOpacity={0.75}>
+      <TouchableOpacity
+        style={styles.containerRegion}
+        activeOpacity={0.75}
+        onPress={onPressRegion}>
         <Text style={styles.label}>Indonesia</Text>
       </TouchableOpacity>
       {/* modal for filter size */}
       <Modal
         animationType="slide"
         transparent={true}
-        visible={modalVisible}
+        visible={modalFilterSizeVisible}
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
+          setModalFilterSizeVisible(!modalFilterSizeVisible);
         }}>
         <View style={styles.modalSize}>
-          <ModalFilterSize onClose={() => setModalVisible(false)} />
+          <ModalFilterSize onClose={() => setModalFilterSizeVisible(false)} />
+        </View>
+      </Modal>
+      {/* modal for filter region */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalFilterRegionVisible}
+        onRequestClose={() => {
+          setModalFilterRegionVisible(!modalFilterRegionVisible);
+        }}>
+        <View style={styles.modalSize}>
+          <ModalFilterRegion
+            onClose={() => setModalFilterRegionVisible(false)}
+          />
         </View>
       </Modal>
     </View>
