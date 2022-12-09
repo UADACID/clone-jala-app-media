@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {Button, Text} from 'react-native';
+import {Button} from 'react-native';
 
 const News = () => {
   const navigation = useNavigation();

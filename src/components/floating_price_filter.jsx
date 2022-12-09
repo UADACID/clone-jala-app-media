@@ -1,13 +1,5 @@
 import React, {useState} from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  Modal,
-  Alert,
-  TouchableOpacity,
-  Button,
-} from 'react-native';
+import {Text, View, StyleSheet, Modal, TouchableOpacity} from 'react-native';
 import ModalFilterSize from './modal_filter_size';
 
 const FloatingPriceFilter = () => {

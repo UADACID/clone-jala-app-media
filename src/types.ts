@@ -10,9 +10,3 @@ export interface RootStackParamList extends ParamListBase {
 }
 
 export type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
-
-// export interface TopTabParamList extends ParamListBase {
-//   Price: undefined;
-//   News: undefined;
-//   Diseases: undefined;
-// }
