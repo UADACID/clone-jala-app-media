@@ -1,5 +1,4 @@
 import React from 'react';
-import {Props} from '../types';
 
 const {View, StyleSheet, Button} = require('react-native');
 
