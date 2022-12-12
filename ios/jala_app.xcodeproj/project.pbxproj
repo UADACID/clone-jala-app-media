@@ -12,6 +12,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3C19543C31704EA8F1F0D0F5 /* libPods-jala_app.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43B7CAC53CAA552D5E699F88 /* libPods-jala_app.a */; };
+		526033AC2946E01600A82099 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 526033AB2946E01600A82099 /* MaterialIcons.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		BF93C52BA5DA5B318AA58757 /* libPods-jala_app-jala_appTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BA0CAA76A62B953E56DEC9 /* libPods-jala_app-jala_appTests.a */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = jala_app/main.m; sourceTree = "<group>"; };
 		43B7CAC53CAA552D5E699F88 /* libPods-jala_app.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-jala_app.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		449AF89831A0F02C9CE5B7A0 /* Pods-jala_app-jala_appTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jala_app-jala_appTests.release.xcconfig"; path = "Target Support Files/Pods-jala_app-jala_appTests/Pods-jala_app-jala_appTests.release.xcconfig"; sourceTree = "<group>"; };
+		526033AB2946E01600A82099 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		6102106E23FEAD01EBB06E3A /* Pods-jala_app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jala_app.release.xcconfig"; path = "Target Support Files/Pods-jala_app/Pods-jala_app.release.xcconfig"; sourceTree = "<group>"; };
 		67BA0CAA76A62B953E56DEC9 /* libPods-jala_app-jala_appTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-jala_app-jala_appTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = jala_app/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 		13B07FAE1A68108700A75B9A /* jala_app */ = {
 			isa = PBXGroup;
 			children = (
+				526033AA2946DFDE00A82099 /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -104,6 +107,14 @@
 				67BA0CAA76A62B953E56DEC9 /* libPods-jala_app-jala_appTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		526033AA2946DFDE00A82099 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				526033AB2946E01600A82099 /* MaterialIcons.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -244,6 +255,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				526033AC2946E01600A82099 /* MaterialIcons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

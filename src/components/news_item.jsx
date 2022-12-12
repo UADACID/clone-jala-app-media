@@ -1,5 +1,6 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {Colors} from '../utils/colors';
 
 const dummyImageUrl =
@@ -22,7 +23,7 @@ const NewsItem = () => (
       </Text>
       <View style={styles.footer}>
         <Text style={styles.date}>30 April 2020</Text>
-        <Text>share icon</Text>
+        <MaterialIcons name={'share'} size={30} />
       </View>
     </View>
   </View>
