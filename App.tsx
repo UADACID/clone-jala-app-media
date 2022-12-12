@@ -11,6 +11,7 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
+import ShareButton from './src/components/share_button';
 import DiseasesDetailScreen from './src/screens/disease_detail_screen';
 import HomeScreen from './src/screens/home_screen';
 import MediaScreen from './src/screens/media_screen';
@@ -40,23 +41,28 @@ const App = () => {
             component={MediaScreen}
             options={{title: 'Jala Media'}}
           />
-          <RootStack.Screen
-            name="PriceDetail"
-            component={PriceDetailScreen}
-            options={{
-              title: 'Harga Udang',
-            }}
-          />
-          <RootStack.Screen
-            name="NewsDetail"
-            component={NewsDetailScreen}
-            options={{title: 'Kabar Udang'}}
-          />
-          <RootStack.Screen
-            name="DiseasesDetail"
-            component={DiseasesDetailScreen}
-            options={{title: 'Info Penyakit'}}
-          />
+          <RootStack.Group
+            screenOptions={{
+              headerRight: () => <ShareButton />,
+            }}>
+            <RootStack.Screen
+              name="PriceDetail"
+              component={PriceDetailScreen}
+              options={{
+                title: 'Harga Udang',
+              }}
+            />
+            <RootStack.Screen
+              name="NewsDetail"
+              component={NewsDetailScreen}
+              options={{title: 'Kabar Udang'}}
+            />
+            <RootStack.Screen
+              name="DiseasesDetail"
+              component={DiseasesDetailScreen}
+              options={{title: 'Info Penyakit'}}
+            />
+          </RootStack.Group>
         </RootStack.Group>
       </RootStack.Navigator>
     </NavigationContainer>

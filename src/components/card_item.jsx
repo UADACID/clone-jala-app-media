@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Colors} from '../utils/colors';
 
 const dummyImageUrl =
@@ -62,7 +62,12 @@ const CardItem = ({
         </Text>
         <View style={styles.footer}>
           <Text style={styles.date}>{date}</Text>
-          <MaterialIcons name={'share'} size={30} onPress={_onPressShare} />
+          <Ionicons
+            name={'md-share-social-outline'}
+            size={30}
+            color="black"
+            onPress={_onPressShare}
+          />
         </View>
       </View>
     </TouchableOpacity>
