@@ -5,6 +5,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Linking,
+  Alert,
 } from 'react-native';
 import Verified from '../components/verified';
 import {Colors} from '../utils/colors';
@@ -40,6 +42,15 @@ const PriceDetailScreen = () => {
       price: 97000,
     },
   ];
+
+  const _onPressHub = async () => {
+    try {
+      Linking.openURL('tel:6285641560xxx');
+    } catch (error) {
+      Alert.alert('Error', error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -66,14 +77,14 @@ const PriceDetailScreen = () => {
               <Text style={styles.labelContact}>Kontak</Text>
               <Text style={styles.contactValue}>+6285641560XXX</Text>
             </View>
-            <TouchableOpacity style={styles.buttonHub}>
+            <TouchableOpacity style={styles.buttonHub} onPress={_onPressHub}>
               <Text style={styles.labelButtonHub}>Hubungi</Text>
             </TouchableOpacity>
           </View>
           <Text style={styles.labelPriceList}>Daftar Harga</Text>
           {priceList.map((item, index) => {
             return (
-              <View style={styles.priceItem}>
+              <View key={index.toString()} style={styles.priceItem}>
                 <Text style={styles.sizeName}>{item.name}</Text>
                 <Text style={styles.sizePrice}>RP {item.price}</Text>
               </View>
