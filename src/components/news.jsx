@@ -4,7 +4,6 @@ import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import NewsItem from './news_item';
 
 const News = () => {
-  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>

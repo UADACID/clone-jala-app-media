@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Colors} from '../utils/colors';
 
 const ModalFilterRegion = ({onClose}) => {
@@ -36,8 +37,18 @@ const ModalFilterRegion = ({onClose}) => {
               <Text style={styles.labelCancel}>Tutup</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.containerInput}>
-            <TextInput placeholder="Cari" />
+          <View style={styles.containerContainerInput}>
+            <View style={styles.containerInput}>
+              <Ionicons name="search" color="#9F9E9E" size={26} />
+              <TextInput
+                placeholder="Cari"
+                style={styles.searchInput}
+                placeholderTextColor="#9F9E9E"
+              />
+            </View>
+            <TouchableOpacity style={styles.iconClear}>
+              <Ionicons name="close-circle" color="#737373" size={24} />
+            </TouchableOpacity>
           </View>
           <View style={styles.divider} />
           <ScrollView>
@@ -95,6 +106,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginLeft: 16,
     marginTop: 16,
+    color: Colors.default,
   },
   buttonClose: {
     padding: 16,
@@ -107,14 +119,28 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: '#E9E9E9',
   },
+  containerContainerInput: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
   containerInput: {
+    flex: 1,
     borderWidth: 1,
     borderColor: '#E5E5E5',
     marginHorizontal: 16,
-    paddingVertical: 8,
+    backgroundColor: '#F4F5F6',
     paddingHorizontal: 6,
     borderRadius: 5,
-    marginBottom: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  searchInput: {
+    color: Colors.default,
+    flex: 1,
+  },
+  iconClear: {
+    paddingRight: 20,
   },
 });
 export default ModalFilterRegion;

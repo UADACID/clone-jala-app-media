@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginLeft: 16,
     marginTop: 16,
+    color: Colors.default,
   },
   buttonClose: {
     padding: 16,

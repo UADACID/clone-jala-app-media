@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import {Text, View, StyleSheet, Modal, TouchableOpacity} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ModalFilterRegion from './modal_filter_region';
 import ModalFilterSize from './modal_filter_size';
 
@@ -22,12 +24,22 @@ const FloatingPriceFilter = () => {
         style={styles.containerSize}
         activeOpacity={0.95}
         onPress={onPressSize}>
-        <Text style={styles.label}>Size</Text>
+        <MaterialCommunityIcons
+          name="scale"
+          color="white"
+          size={24}
+          style={styles.iconScale}
+        />
+        <View>
+          <Text style={styles.textLabelSize}>Size</Text>
+          <Text style={styles.TextValueSize}>100</Text>
+        </View>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.containerRegion}
         activeOpacity={0.95}
         onPress={onPressRegion}>
+        <Ionicons name="location-sharp" color="white" size={24} />
         <Text style={styles.label}>Indonesia</Text>
       </TouchableOpacity>
       {/* modal for filter size */}
@@ -73,6 +85,7 @@ const styles = StyleSheet.create({
     borderTopStartRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'row',
   },
   containerRegion: {
     backgroundColor: '#2477DF',
@@ -81,15 +94,25 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'row',
   },
   label: {
     color: 'white',
     fontWeight: '600',
     fontSize: 16,
+    marginHorizontal: 20,
   },
   modalSize: {
     flex: 1,
   },
+  textLabelSize: {
+    color: 'white',
+  },
+  TextValueSize: {
+    color: 'white',
+    fontWeight: '600',
+  },
+  iconScale: {marginRight: 10},
 });
 
 export default FloatingPriceFilter;
