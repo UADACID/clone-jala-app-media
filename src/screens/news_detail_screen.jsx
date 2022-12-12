@@ -1,5 +1,4 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
 import {WebView} from 'react-native-webview';
 
 const NewsDetailScreen = () => (
@@ -7,13 +6,8 @@ const NewsDetailScreen = () => (
     source={{
       uri: 'https://app.jala.tech/web_view/posts/100',
     }}
+    startInLoadingState={true}
   />
 );
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default NewsDetailScreen;
