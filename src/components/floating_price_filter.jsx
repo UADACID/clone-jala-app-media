@@ -20,13 +20,13 @@ const FloatingPriceFilter = () => {
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.containerSize}
-        activeOpacity={0.75}
+        activeOpacity={0.95}
         onPress={onPressSize}>
         <Text style={styles.label}>Size</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.containerRegion}
-        activeOpacity={0.75}
+        activeOpacity={0.95}
         onPress={onPressRegion}>
         <Text style={styles.label}>Indonesia</Text>
       </TouchableOpacity>

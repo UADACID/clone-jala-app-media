@@ -19,7 +19,7 @@ const PriceItem = () => {
           </View>
           <View style={styles.containerRegion}>
             <Text style={styles.label}>16 Januari 2020</Text>
-            <Text>Nusa Tenggara Barat</Text>
+            <Text style={styles.subtitleRegion}>Nusa Tenggara Barat</Text>
             <Text style={styles.titleRegion}>Sumba</Text>
           </View>
         </View>
@@ -103,6 +103,10 @@ const styles = StyleSheet.create({
   titleRegion: {
     fontSize: 18,
     fontWeight: '700',
+    color: Colors.default,
+  },
+  subtitleRegion: {
+    fontSize: 14,
     color: Colors.default,
   },
   price: {

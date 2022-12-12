@@ -17,6 +17,7 @@ import MediaScreen from './src/screens/media_screen';
 import NewsDetailScreen from './src/screens/news_detail_screen';
 import PriceDetailScreen from './src/screens/price_detail_screen';
 import {RootStackParamList} from './src/types';
+import {Colors} from './src/utils/colors';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -24,14 +25,39 @@ const App = () => {
   return (
     <NavigationContainer>
       <RootStack.Navigator>
-        <RootStack.Screen name="Home" component={HomeScreen} />
-        <RootStack.Screen name="Media" component={MediaScreen} />
-        <RootStack.Screen name="PriceDetail" component={PriceDetailScreen} />
-        <RootStack.Screen name="NewsDetail" component={NewsDetailScreen} />
-        <RootStack.Screen
-          name="DiseasesDetail"
-          component={DiseasesDetailScreen}
-        />
+        <RootStack.Group
+          screenOptions={{
+            headerStyle: {backgroundColor: Colors.primary},
+            headerTitleStyle: {
+              color: 'white',
+            },
+            headerTitleAlign: 'left',
+            headerTintColor: 'white',
+          }}>
+          <RootStack.Screen name="Home" component={HomeScreen} />
+          <RootStack.Screen
+            name="Media"
+            component={MediaScreen}
+            options={{title: 'Jala Media'}}
+          />
+          <RootStack.Screen
+            name="PriceDetail"
+            component={PriceDetailScreen}
+            options={{
+              title: 'Harga Udang',
+            }}
+          />
+          <RootStack.Screen
+            name="NewsDetail"
+            component={NewsDetailScreen}
+            options={{title: 'Kabar Udang'}}
+          />
+          <RootStack.Screen
+            name="DiseasesDetail"
+            component={DiseasesDetailScreen}
+            options={{title: 'Info Penyakit'}}
+          />
+        </RootStack.Group>
       </RootStack.Navigator>
     </NavigationContainer>
   );

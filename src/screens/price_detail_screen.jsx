@@ -61,7 +61,7 @@ const PriceDetailScreen = () => {
         <View style={styles.divider} />
         <View style={styles.body}>
           <View style={styles.containerDate}>
-            <Text>16 Januari 2020</Text>
+            <Text style={styles.date}>16 Januari 2020</Text>
             <Verified />
           </View>
 
@@ -69,7 +69,7 @@ const PriceDetailScreen = () => {
             <View style={styles.photo} />
             <View>
               <Text style={styles.labelSupplier}>Supplier</Text>
-              <Text>Mina Udang Barokah</Text>
+              <Text style={styles.supplierName}>Mina Udang Barokah</Text>
             </View>
           </View>
           <View style={styles.contact}>
@@ -135,6 +135,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 4,
   },
+  date: {
+    color: 'gray',
+  },
+  supplierName: {
+    color: Colors.default,
+    fontWeight: '600',
+  },
   labelSupplier: {
     color: 'grey',
   },
@@ -155,6 +162,7 @@ const styles = StyleSheet.create({
   },
   contactValue: {
     fontSize: 17,
+    color: Colors.default,
     fontWeight: '400',
   },
   containerDate: {
@@ -162,7 +170,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   buttonHub: {
-    backgroundColor: Colors.defaultButton,
+    backgroundColor: Colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 6,
