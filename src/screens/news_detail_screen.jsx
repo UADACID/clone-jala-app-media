@@ -1,10 +1,19 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
+import {WebView} from 'react-native-webview';
 
 const NewsDetailScreen = () => (
-  <View>
-    <Text>NewsDetailScreen</Text>
-  </View>
+  <WebView
+    source={{
+      uri: 'https://app.jala.tech/web_view/posts/100',
+    }}
+  />
 );
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default NewsDetailScreen;
