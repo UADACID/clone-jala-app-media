@@ -6,7 +6,7 @@
 Clone project and install the dependencies.
 
 ```sh
-$ git clone [https://gitlab.com/farhanfahrezi/cicle-app.git](https://github.com/UADACID/clone-jala-app-media.git)
+$ git clone https://gitlab.com/farhanfahrezi/cicle-app.git
 $ cd clone-jala-app-media
 $ yarn install
 $ cd ios && pod install
