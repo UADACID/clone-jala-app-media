@@ -1,5 +1,5 @@
 import React from 'react';
-import {Share} from 'react-native';
+import {Alert, Share} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const ShareButton = ({content = 'link'}) => {
@@ -18,7 +18,7 @@ const ShareButton = ({content = 'link'}) => {
         // dismissed
       }
     } catch (error) {
-      alert(error.message);
+      Alert.alert(error.message);
     }
   };
   return (

@@ -18,6 +18,7 @@ const MediaScreen = () => {
           title: 'Harga Udang',
           tabBarActiveTintColor: Colors.primary,
           tabBarInactiveTintColor: '#737373',
+          tabBarPressColor: '#F0F0F0',
           tabBarLabelStyle: {
             fontWeight: '600',
             textTransform: 'none',
@@ -36,6 +37,7 @@ const MediaScreen = () => {
           title: 'Kabar Udang',
           tabBarActiveTintColor: Colors.primary,
           tabBarInactiveTintColor: '#737373',
+          tabBarPressColor: '#F0F0F0',
           tabBarLabelStyle: {
             fontWeight: '600',
             textTransform: 'none',
@@ -54,6 +56,7 @@ const MediaScreen = () => {
           title: 'Penyakit',
           tabBarActiveTintColor: Colors.primary,
           tabBarInactiveTintColor: '#737373',
+          tabBarPressColor: '#F0F0F0',
           tabBarLabelStyle: {
             fontWeight: '600',
             textTransform: 'none',

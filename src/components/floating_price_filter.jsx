@@ -63,10 +63,7 @@ const FloatingPriceFilter = ({
       <Modal
         animationType="slide"
         transparent={true}
-        visible={modalFilterSizeVisible}
-        onRequestClose={() => {
-          setModalFilterSizeVisible(!modalFilterSizeVisible);
-        }}>
+        visible={modalFilterSizeVisible}>
         <View style={styles.modalSize}>
           <ModalFilterSize
             selectedSize={selectedSize}
@@ -79,10 +76,7 @@ const FloatingPriceFilter = ({
       <Modal
         animationType="slide"
         transparent={true}
-        visible={modalFilterRegionVisible}
-        onRequestClose={() => {
-          setModalFilterRegionVisible(!modalFilterRegionVisible);
-        }}>
+        visible={modalFilterRegionVisible}>
         <View style={styles.modalSize}>
           <ModalFilterRegion
             selectedFilterRegion={selectedFilterRegion}

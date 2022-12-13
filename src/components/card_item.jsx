@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {
+  Alert,
   Image,
   Share,
   StyleSheet,
@@ -37,7 +38,7 @@ const CardItem = ({
         // dismissed
       }
     } catch (error) {
-      alert(error.message);
+      Alert.alert(error.message);
     }
   };
   return (
