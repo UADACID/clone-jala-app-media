@@ -1,14 +1,12 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {WebView} from 'react-native-webview';
 
-const NewsDetailScreen = ({navigation}) => {
-  // useEffect(() => {
-  //   navigation.setParams({shareUrl: navigation.route.params});
-  // }, [navigation]);
+const NewsDetailScreen = ({route}) => {
+  const {id} = route.params;
   return (
     <WebView
       source={{
-        uri: 'https://app.jala.tech/web_view/posts/100',
+        uri: `https://app.jala.tech/web_view/posts/${id}`,
       }}
       startInLoadingState={true}
     />

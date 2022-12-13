@@ -82,7 +82,11 @@ const News = () => {
   }
 
   const renderItem = ({item}) => {
-    return <NewsItem {...item} />;
+    return (
+      <View style={styles.ContainerNewsItem}>
+        <NewsItem {...item} />
+      </View>
+    );
   };
   return (
     <View style={styles.container}>
@@ -97,7 +101,7 @@ const News = () => {
         }
         onEndReachedThreshold={0.01}
         onEndReached={getMoreList}
-        ListHeaderComponent={<Text style={styles.title}>Harga Terbaru</Text>}
+        ListHeaderComponent={<Text style={styles.title}>Kabar Terbaru</Text>}
         ListFooterComponent={loadingMore && <ActivityIndicator />}
       />
     </View>

@@ -2,10 +2,10 @@ import axios from 'axios';
 import {baseApiUrl} from '../utils/constant';
 import {dummyToken} from '../utils/dummy_token';
 
-export const getListShrimpNews = page => {
+export const getListShrimpDiseases = page => {
   return axios({
     method: 'get',
-    url: `${baseApiUrl}/posts`,
+    url: `${baseApiUrl}/diseases`,
     headers: {
       Authorization: `Bearer ${dummyToken}`,
     },

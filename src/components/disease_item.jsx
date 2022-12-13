@@ -1,20 +1,24 @@
 import {useNavigation} from '@react-navigation/native';
+import moment from 'moment';
 import React from 'react';
-import {Text, View} from 'react-native';
+import {baseStorageUrl} from '../utils/constant';
 import CardItem from './card_item';
 
-const DiseaseItem = () => {
+const DiseaseItem = props => {
   const navigation = useNavigation();
   return (
     <CardItem
-      title="Baruno: Alat Kualitas Air Pintar Handal dan Praktis"
-      description="Tahun 2019 telah berlalu, kini tahun 2020 telah memasuki minggu ketiga, memasuki tahun lorempisum dolor sit amet zzzzzzzz"
-      date="30 April 2020"
-      shareContent="link news detail"
-      imageBannerUrl={
-        'https://i2.wp.com/gdmorganic.com/wp-content/uploads/2021/04/penyakit-myo-udang-vaname.jpg'
+      title={`${props.full_name} (${props.short_name})` || 'untitled'}
+      description={props.meta_description || '-'}
+      date={moment(props.createdAt).format('DD MMMM YYYY')}
+      shareContent={`https://app.jala.tech/diseases/${props.id}`}
+      imageBannerUrl={`${baseStorageUrl}/${props.image}`}
+      onPress={() =>
+        navigation.navigate('DiseasesDetail', {
+          ...props,
+          shareUrl: `https://app.jala.tech/diseases/${props.id}`,
+        })
       }
-      onPress={() => navigation.navigate('DiseasesDetail')}
     />
   );
 };
