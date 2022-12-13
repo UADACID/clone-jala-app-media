@@ -1,10 +1,35 @@
 # clone-jala-app-media
 
-### Screenshoot
+
+### Installation
+
+Clone project and install the dependencies.
+
+```sh
+$ git clone [https://gitlab.com/farhanfahrezi/cicle-app.git](https://github.com/UADACID/clone-jala-app-media.git)
+$ cd clone-jala-app-media
+$ yarn install
+$ cd ios && pod install
+```
+
+### How to run
 
 ## Android
 
-<img src="[https://your-image-url.type](https://user-images.githubusercontent.com/15373307/207464457-1fa507c9-0897-4c6d-9573-997f998b37b7.jpeg)" width="100">
+```sh
+$ npx react-native run-android
+```
+
+## iOS
+
+```sh
+$ npx react-native run-ios
+```
+
+
+### Screenshoot
+
+## Android
 
 ![photo_2022-12-14 06 05 24](https://user-images.githubusercontent.com/15373307/207464457-1fa507c9-0897-4c6d-9573-997f998b37b7.jpeg)
 ![photo_2022-12-14 06 05 30](https://user-images.githubusercontent.com/15373307/207464476-32a74ce6-3b00-4f85-9db4-d86cfd44280d.jpeg)
