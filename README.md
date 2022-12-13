@@ -4,8 +4,6 @@
 
 ## Android
 
-<img src="[image1.png](https://user-images.githubusercontent.com/15373307/207464457-1fa507c9-0897-4c6d-9573-997f998b37b7.jpeg)" width="200"/> <img src="[image2.png](https://user-images.githubusercontent.com/15373307/207464476-32a74ce6-3b00-4f85-9db4-d86cfd44280d.jpeg)" width="200"/>
-
 ![photo_2022-12-14 06 05 24](https://user-images.githubusercontent.com/15373307/207464457-1fa507c9-0897-4c6d-9573-997f998b37b7.jpeg)
 ![photo_2022-12-14 06 05 30](https://user-images.githubusercontent.com/15373307/207464476-32a74ce6-3b00-4f85-9db4-d86cfd44280d.jpeg)
 ![photo_2022-12-14 06 05 32](https://user-images.githubusercontent.com/15373307/207464513-e6fcc6da-8a4c-4f2b-8f74-4f71230758b3.jpeg)
@@ -16,3 +14,18 @@
 ![photo_2022-12-14 06 05 42](https://user-images.githubusercontent.com/15373307/207464714-3ca71e86-7e29-4777-8f3c-8745ed8633f8.jpeg)
 ![photo_2022-12-14 06 05 44](https://user-images.githubusercontent.com/15373307/207464733-e0a91bd8-6780-47bb-abb0-b6e6434a8402.jpeg)
 ![photo_2022-12-14 06 05 46](https://user-images.githubusercontent.com/15373307/207464753-742de9b2-7011-4e7b-be85-59202d29ae87.jpeg)
+
+### iOS
+
+
+![Simulator Screen Shot - iPhone 13 - 2022-12-14 at 06 00 22](https://user-images.githubusercontent.com/15373307/207466328-b26bf0fe-f4d2-4cde-90e0-600a8be61e3e.png)
+![Simulator Screen Shot - iPhone 13 - 2022-12-14 at 05 58 38](https://user-images.githubusercontent.com/15373307/207466348-888bbcdc-6fe5-4e29-83c3-797ec8288e7b.png)
+![Simulator Screen Shot - iPhone 13 - 2022-12-14 at 05 59 25](https://user-images.githubusercontent.com/15373307/207466357-7d759061-7653-4cd8-9062-d5c9e1ed4de0.png)
+![Simulator Screen Shot - iPhone 13 - 2022-12-14 at 06 00 29](https://user-images.githubusercontent.com/15373307/207466435-3e739cff-5a4d-44c2-aeb8-d4ffedd052a6.png)
+![Simulator Screen Shot - iPhone 13 - 2022-12-14 at 06 00 43](https://user-images.githubusercontent.com/15373307/207466449-eab575b8-406a-457e-a899-6f754ba8bf41.png)
+![Simulator Screen Shot - iPhone 13 - 2022-12-14 at 06 00 56](https://user-images.githubusercontent.com/15373307/207466458-f772afb8-01ac-4a26-938a-f086d6e00558.png)
+![Simulator Screen Shot - iPhone 13 - 2022-12-14 at 06 01 07](https://user-images.githubusercontent.com/15373307/207466471-a0d0de29-6cb2-4b92-a823-dc37b27dca75.png)![Simulator Screen Sh![Sim![Simulator Screen Shot - iPhone 13 - 2022-12-14 at 06 01 59](https://user-images.githubusercontent.com/15373307/207466523-e30aacb8-5d60-4dfe-8780-464ee34f6220.png)
+ulator Screen Shot - iPhone 13 - 2022-12-14 at 06 01 41](https://user-images.githubusercontent.com/15373307/207466514-cb5ae4b5-42b8-4f9c-a249-e11d9721bfa2.png)
+ot - iPhone 13 - 2022-12-14 at 06 02 11](https://user-images.githubusercontent.com/15373307/207466493-edec5e64-de3d-4076-8e4d-adb0b5c01382.png)![Simulator Screen Shot - iPhone 13 - 2022-12-14 at 06 01 35](https://user-images.githubusercontent.com/15373307/207466500-c6484cbe-7ac5-4e19-acc6-77af27b68024.png)
+
+
