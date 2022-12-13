@@ -28,7 +28,7 @@ const FloatingPriceFilter = ({
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.containerSize}
-        activeOpacity={0.95}
+        activeOpacity={1}
         onPress={onPressSize}>
         <MaterialCommunityIcons
           name="scale"
@@ -43,7 +43,7 @@ const FloatingPriceFilter = ({
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.containerRegion}
-        activeOpacity={0.95}
+        activeOpacity={1}
         onPress={onPressRegion}>
         <Ionicons
           name="location-sharp"
@@ -99,7 +99,19 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     height: 45,
+    borderWidth: 0.5,
     justifyContent: 'space-between',
+    borderColor: '#E5E5E5',
+    shadowColor: '#000',
+    borderRadius: 45,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 0.5,
+
+    elevation: 0.5,
   },
   containerSize: {
     backgroundColor: '#124492',

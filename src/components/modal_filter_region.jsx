@@ -31,7 +31,7 @@ const ModalFilterRegion = ({
 
   const [loading, setLoading] = useState(false);
 
-  const debouncedValue = useDebounce(searchKey, 500);
+  const debouncedValue = useDebounce(searchKey, 400);
 
   const handleChange = value => {
     setSearchKey(value);
@@ -57,7 +57,7 @@ const ModalFilterRegion = ({
   }, [searchKey]);
 
   const getMoreList = async () => {
-    if (!loadingMore && nextPage < lastPage) {
+    if (!loadingMore && nextPage <= lastPage) {
       try {
         setLoadingMore(true);
         const response = await getListRegion(searchKey, nextPage);
@@ -101,7 +101,15 @@ const ModalFilterRegion = ({
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <View style={styles.header}>
             <Text style={styles.title}>Kota/kabupaten</Text>
-            <TouchableOpacity onPress={onClose} style={styles.buttonClose}>
+            <TouchableOpacity
+              onPress={() => {
+                onClose();
+                onSelect({
+                  full_name: '',
+                  id: '',
+                });
+              }}
+              style={styles.buttonClose}>
               <Text style={styles.labelCancel}>Tutup</Text>
             </TouchableOpacity>
           </View>

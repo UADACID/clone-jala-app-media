@@ -56,7 +56,7 @@ const Prices = () => {
   }, [selectedFilterRegion.id]);
 
   const getMoreList = async () => {
-    if (!loadingMore && nextPage < lastPage) {
+    if (!loadingMore && nextPage <= lastPage) {
       try {
         setLoadingMore(true);
         const response = await getListShrimpPrices(
@@ -77,6 +77,11 @@ const Prices = () => {
     }
   };
 
+  const filterBySelectedSize = itemAsProps => {
+    const priceBySize = itemAsProps[`size_${selectedSize}`];
+    return priceBySize;
+  };
+
   // first initial loading
   if (loading && list.length === 0) {
     return (
@@ -91,11 +96,16 @@ const Prices = () => {
     return <TryAgain message={errorMessage} onTryAgain={getInitialList} />;
   }
 
-  const renderItem = ({item}) => (
-    <View style={styles.ContainerPriceItem}>
-      <PriceItem {...item} selectedSize={selectedSize} />
-    </View>
-  );
+  const renderItem = ({item}) => {
+    if (filterBySelectedSize(item)) {
+      return (
+        <View style={styles.ContainerPriceItem}>
+          <PriceItem {...item} selectedSize={selectedSize} />
+        </View>
+      );
+    }
+    return <View />;
+  };
 
   return (
     <View style={styles.container}>
