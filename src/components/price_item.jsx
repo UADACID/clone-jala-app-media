@@ -1,34 +1,57 @@
 import {useNavigation} from '@react-navigation/native';
+import moment from 'moment';
+import 'moment/src/locale/id';
+moment.locale('id');
 import React from 'react';
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {Colors} from '../utils/colors';
+import {baseStorageUrl} from '../utils/constant';
+import {capitalFirstLetter, currencyAdapter} from '../utils/helpers';
 import Verified from './verified';
 
-const PriceItem = () => {
+const PriceItem = props => {
   const navigation = useNavigation();
+
+  console.log(props);
+
+  const name = props.creator.name;
+  const avatarUrl = `${baseStorageUrl}/${props.creator.avatar}`;
+  const currencyId = props.currency_id;
+  const province = props.region.province_name || '-';
+  const regency = props.region.regency_name || '-';
+  const priceForSize100 = props.size_100 || 0;
+  const createdAt = moment(props.created_at).format('DD MMMM YYYY');
+  const isVerified = props.creator.buyer;
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View>
           <View style={styles.containerSupplierName}>
-            <View style={styles.photo} />
+            <Image source={{uri: avatarUrl}} style={styles.photo} he />
             <View>
               <Text style={styles.label}>Supplier</Text>
-              <Text style={styles.name}>Mina Udang Barokah</Text>
+              <Text style={styles.name}>{name}</Text>
             </View>
           </View>
           <View style={styles.containerRegion}>
-            <Text style={styles.label}>16 Januari 2020</Text>
-            <Text style={styles.subtitleRegion}>Nusa Tenggara Barat</Text>
-            <Text style={styles.titleRegion}>Sumba</Text>
+            <Text style={styles.label}>{createdAt}</Text>
+            <Text style={styles.subtitleRegion}>
+              {capitalFirstLetter(province)}
+            </Text>
+            <Text style={styles.titleRegion}>
+              {capitalFirstLetter(regency)}
+            </Text>
           </View>
         </View>
-        <Verified />
+        <Verified isVerified={isVerified} />
       </View>
       <View style={styles.footer}>
         <View>
           <Text style={styles.label}>size 100</Text>
-          <Text style={styles.price}>IDR 56.500</Text>
+          <Text style={styles.price}>
+            {currencyId} {currencyAdapter(priceForSize100)}
+          </Text>
         </View>
         <TouchableOpacity
           style={styles.button}

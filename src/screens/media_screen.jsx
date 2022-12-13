@@ -2,7 +2,7 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import React from 'react';
 import Diseases from '../components/diseases';
 import News from '../components/news';
-import Price from '../components/price';
+import Prices from '../components/prices';
 import {Colors} from '../utils/colors';
 
 const Tab = createMaterialTopTabNavigator();
@@ -12,7 +12,7 @@ const MediaScreen = () => {
     <Tab.Navigator>
       <Tab.Screen
         name="Price"
-        component={Price}
+        component={Prices}
         options={{
           title: 'Harga Udang',
           tabBarActiveTintColor: Colors.primary,
