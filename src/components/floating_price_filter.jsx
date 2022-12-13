@@ -2,10 +2,16 @@ import React, {useState} from 'react';
 import {Text, View, StyleSheet, Modal, TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {capitalFirstLetter} from '../utils/helpers';
 import ModalFilterRegion from './modal_filter_region';
 import ModalFilterSize from './modal_filter_size';
 
-const FloatingPriceFilter = () => {
+const FloatingPriceFilter = ({
+  selectedSize,
+  setSelectedSize,
+  selectedFilterRegion,
+  onSelectRegion,
+}) => {
   const [modalFilterSizeVisible, setModalFilterSizeVisible] = useState(false);
   const [modalFilterRegionVisible, setModalFilterRegionVisible] =
     useState(false);
@@ -32,15 +38,26 @@ const FloatingPriceFilter = () => {
         />
         <View>
           <Text style={styles.textLabelSize}>Size</Text>
-          <Text style={styles.TextValueSize}>100</Text>
+          <Text style={styles.TextValueSize}>{selectedSize}</Text>
         </View>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.containerRegion}
         activeOpacity={0.95}
         onPress={onPressRegion}>
-        <Ionicons name="location-sharp" color="white" size={24} />
-        <Text style={styles.label}>Indonesia</Text>
+        <Ionicons
+          name="location-sharp"
+          color="white"
+          size={24}
+          style={styles.iconLocation}
+        />
+        <Text
+          style={[
+            styles.label,
+            selectedFilterRegion.full_name.length > 25 ? {fontSize: 12} : {},
+          ]}>
+          {capitalFirstLetter(selectedFilterRegion.full_name) || 'Indonesia'}{' '}
+        </Text>
       </TouchableOpacity>
       {/* modal for filter size */}
       <Modal
@@ -51,7 +68,11 @@ const FloatingPriceFilter = () => {
           setModalFilterSizeVisible(!modalFilterSizeVisible);
         }}>
         <View style={styles.modalSize}>
-          <ModalFilterSize onClose={() => setModalFilterSizeVisible(false)} />
+          <ModalFilterSize
+            selectedSize={selectedSize}
+            onClose={() => setModalFilterSizeVisible(false)}
+            onSelect={value => setSelectedSize(value)}
+          />
         </View>
       </Modal>
       {/* modal for filter region */}
@@ -64,7 +85,9 @@ const FloatingPriceFilter = () => {
         }}>
         <View style={styles.modalSize}>
           <ModalFilterRegion
+            selectedFilterRegion={selectedFilterRegion}
             onClose={() => setModalFilterRegionVisible(false)}
+            onSelect={value => onSelectRegion(value)}
           />
         </View>
       </Modal>
@@ -96,11 +119,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
   },
+  iconLocation: {marginLeft: 16},
   label: {
     color: 'white',
     fontWeight: '600',
     fontSize: 16,
-    marginHorizontal: 20,
+    marginRight: 16,
   },
   modalSize: {
     flex: 1,

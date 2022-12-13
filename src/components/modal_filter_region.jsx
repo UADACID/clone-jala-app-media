@@ -1,27 +1,95 @@
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   Text,
   View,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
   TextInput,
   KeyboardAvoidingView,
   Platform,
+  ActivityIndicator,
+  FlatList,
+  Alert,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Colors} from '../utils/colors';
+import {useDebounce} from 'usehooks-ts';
+import {getListRegion} from '../services/shrimp_prices_service';
+import {capitalFirstLetter, delay} from '../utils/helpers';
 
-const ModalFilterRegion = ({onClose}) => {
-  const listOfRegion = [
-    'Aceh, Simeulue',
-    'Aceh, Simeulue, Tupah Selatan',
-    'Aceh, Simeulue, Tupah Selatan, Labuhan Bajau',
-    'Aceh, Simeulue, Tupah Selatan, Pulau Bengkalak',
-    'Aceh, Simeulue, Tupah Selatan, Badegong',
-    'Aceh, Simeulue, Tupah Selatan, Kebun Baru',
-    'Aceh, Simeulue, Tupah Selatan, Ulul Mayang',
-  ];
+const ModalFilterRegion = ({
+  selectedFilterRegion,
+  onClose,
+  onSelect = value => console.log(value),
+}) => {
+  const [searchKey, setSearchKey] = useState(selectedFilterRegion.full_name);
+  const [list, setList] = useState([]);
+
+  const [lastPage, setLastPage] = useState(0);
+  const [nextPage, setNextPage] = useState(0);
+  const [loadingMore, setLoadingMore] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+
+  const debouncedValue = useDebounce(searchKey, 500);
+
+  const handleChange = value => {
+    setSearchKey(value);
+  };
+
+  useEffect(() => {
+    getList();
+  }, [debouncedValue, getList]);
+
+  const getList = useCallback(async () => {
+    try {
+      setLoading(true);
+      const response = await getListRegion(searchKey, 1);
+      const {data, meta} = response.data;
+      setList(data);
+      setLastPage(meta.last_page);
+      setNextPage(meta.current_page + 1);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      Alert.alert('terjadi kesalahan', error.toString());
+    }
+  }, [searchKey]);
+
+  const getMoreList = async () => {
+    if (!loadingMore && nextPage < lastPage) {
+      try {
+        setLoadingMore(true);
+        const response = await getListRegion(searchKey, nextPage);
+        await delay(600);
+        const {data, meta} = response.data;
+        setList(prevList => prevList.concat(data));
+        setLastPage(meta.last_page);
+        setNextPage(nextPage + 1);
+        setLoadingMore(false);
+      } catch (error) {
+        console.error(error);
+        setLoadingMore(false);
+        Alert.alert('error get more list');
+      }
+    }
+  };
+
+  const renderItem = ({item}) => {
+    return (
+      <TouchableOpacity
+        key={item.id.toString()}
+        onPress={() => {
+          onSelect(item);
+          onClose();
+        }}
+        style={styles.containerSizeItem}>
+        <Text style={styles.sizeItem}>
+          {capitalFirstLetter(item.full_name)}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -41,25 +109,54 @@ const ModalFilterRegion = ({onClose}) => {
             <View style={styles.containerInput}>
               <Ionicons name="search" color="#9F9E9E" size={26} />
               <TextInput
+                value={searchKey}
                 placeholder="Cari"
                 style={styles.searchInput}
+                onChangeText={handleChange}
                 placeholderTextColor="#9F9E9E"
               />
             </View>
-            <TouchableOpacity style={styles.iconClear}>
+            <TouchableOpacity
+              style={styles.iconClear}
+              onPress={() => setSearchKey('')}>
               <Ionicons name="close-circle" color="#737373" size={24} />
             </TouchableOpacity>
           </View>
           <View style={styles.divider} />
-          <ScrollView>
-            {listOfRegion.map(size => (
-              <TouchableOpacity
-                key={size.toString()}
-                style={styles.containerSizeItem}>
-                <Text style={styles.sizeItem}>{size}</Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
+          {loading && (
+            <View style={styles.containerLoading}>
+              <ActivityIndicator />
+            </View>
+          )}
+          <FlatList
+            data={list}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+            showsVerticalScrollIndicator={false}
+            onEndReachedThreshold={0.01}
+            onEndReached={getMoreList}
+            ListFooterComponent={
+              loadingMore && (
+                <View style={styles.containerEmpty}>
+                  <ActivityIndicator />
+                </View>
+              )
+            }
+            ListEmptyComponent={
+              !loading ? (
+                <View style={styles.containerEmpty}>
+                  <Text style={styles.textEmpty}>
+                    Kota/kabupaten dengan kata kunci{' '}
+                    <Text style={styles.textHighlight}>{searchKey}</Text> tidak
+                    ditemukan
+                  </Text>
+                </View>
+              ) : (
+                <View />
+              )
+            }
+            // contentContainerStyle={styles.containerList}
+          />
         </KeyboardAvoidingView>
       </View>
     </View>
@@ -88,6 +185,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
 
     borderColor: '#EFEFEF',
+  },
+  containerLoading: {
+    margin: 20,
+  },
+  containerEmpty: {
+    padding: 50,
+  },
+  textHighlight: {
+    fontWeight: '600',
+    color: Colors.primary,
+  },
+  textEmpty: {
+    color: 'gray',
+    textAlign: 'center',
   },
   containerContent: {
     backgroundColor: 'white',

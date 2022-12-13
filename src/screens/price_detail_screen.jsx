@@ -12,9 +12,9 @@ import {
   Image,
   RefreshControl,
 } from 'react-native';
-import {getPriceDetailAction} from '../actions/price_detail_action';
+import {getPriceDetailAction} from '../actions/price_action';
 import Verified from '../components/verified';
-import {priceDetailReducer} from '../reducers/price_detail_reducer';
+import {priceDetailReducer} from '../reducers/price_reducer';
 import {Colors} from '../utils/colors';
 import {baseStorageUrl} from '../utils/constant';
 import {

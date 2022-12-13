@@ -8,7 +8,11 @@ import {
 } from 'react-native';
 import {Colors} from '../utils/colors';
 
-const ModalFilterSize = ({onClose}) => {
+const ModalFilterSize = ({
+  selectedSize,
+  onClose,
+  onSelect = value => console.log(value),
+}) => {
   // generate static array
   const listOfSize = Array.from({length: 19}, (_, i) => i * 10 + 20);
 
@@ -28,7 +32,14 @@ const ModalFilterSize = ({onClose}) => {
             {listOfSize.map(size => (
               <TouchableOpacity
                 key={size.toString()}
-                style={styles.containerSizeItem}>
+                onPress={() => {
+                  onSelect(size);
+                  onClose();
+                }}
+                style={[
+                  styles.containerSizeItem,
+                  selectedSize === size ? {backgroundColor: '#F2F2F2'} : {},
+                ]}>
                 <Text style={styles.sizeItem}>{size}</Text>
               </TouchableOpacity>
             ))}

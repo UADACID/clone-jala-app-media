@@ -16,7 +16,7 @@ const PriceItem = props => {
   const currencyId = props.currency_id;
   const province = props.region.province_name || '-';
   const regency = props.region.regency_name || '-';
-  const priceForSize100 = props.size_100 || 0;
+  const priceBySize = props[`size_${props.selectedSize}`] || 0;
   const updatedAt = moment(props.updated_at).format('DD MMMM YYYY');
   const isVerified = props.creator.buyer;
 
@@ -49,9 +49,9 @@ const PriceItem = props => {
       </View>
       <View style={styles.footer}>
         <View>
-          <Text style={styles.label}>size 100</Text>
+          <Text style={styles.label}>size {props.selectedSize}</Text>
           <Text style={styles.price}>
-            {currencyId} {currencyAdapter(priceForSize100)}
+            {currencyId} {currencyAdapter(priceBySize)}
           </Text>
         </View>
         <TouchableOpacity style={styles.button} onPress={redirectPriceDetail}>

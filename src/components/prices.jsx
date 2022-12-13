@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   Text,
   StyleSheet,
@@ -7,7 +7,6 @@ import {
   Alert,
   ActivityIndicator,
   RefreshControl,
-  TouchableOpacity,
 } from 'react-native';
 import {getListShrimpPrices} from '../services/shrimp_prices_service';
 import {Colors} from '../utils/colors';
@@ -26,15 +25,23 @@ const Prices = () => {
 
   const [errorMessage, setErrorMessage] = useState('');
 
+  const [selectedSize, setSelectedSize] = useState(100);
+
+  const [selectedFilterRegion, setSelectedFilterRegion] = useState({
+    full_name: '',
+    id: '',
+  });
+
   useEffect(() => {
     getInitialList();
-  }, []);
+  }, [getInitialList, selectedFilterRegion.id]);
 
-  const getInitialList = async () => {
+  const getInitialList = useCallback(async () => {
     try {
+      console.log('re-fecth');
       setLoading(true);
       setErrorMessage('');
-      const response = await getListShrimpPrices(1);
+      const response = await getListShrimpPrices(1, selectedFilterRegion.id);
       const {data, meta} = response.data;
       setList(data);
       setLastPage(meta.last_page);
@@ -46,13 +53,16 @@ const Prices = () => {
       setLoading(false);
       Alert.alert('terjadi kesalahan', error.toString());
     }
-  };
+  }, [selectedFilterRegion.id]);
 
   const getMoreList = async () => {
     if (!loadingMore && nextPage < lastPage) {
       try {
         setLoadingMore(true);
-        const response = await getListShrimpPrices(nextPage);
+        const response = await getListShrimpPrices(
+          nextPage,
+          selectedFilterRegion.id,
+        );
         await delay(1000);
         const {data, meta} = response.data;
         setList(prevList => prevList.concat(data));
@@ -83,7 +93,7 @@ const Prices = () => {
 
   const renderItem = ({item}) => (
     <View style={styles.ContainerPriceItem}>
-      <PriceItem {...item} />
+      <PriceItem {...item} selectedSize={selectedSize} />
     </View>
   );
 
@@ -104,7 +114,12 @@ const Prices = () => {
         ListFooterComponent={loadingMore && <ActivityIndicator />}
       />
       <View style={styles.containerFloatingFilter}>
-        <FloatingPriceFilter />
+        <FloatingPriceFilter
+          selectedSize={selectedSize}
+          setSelectedSize={value => setSelectedSize(value)}
+          selectedFilterRegion={selectedFilterRegion}
+          onSelectRegion={value => setSelectedFilterRegion(value)}
+        />
       </View>
     </View>
   );
