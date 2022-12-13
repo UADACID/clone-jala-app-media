@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import moment from 'moment';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useReducer} from 'react';
 import {
   Text,
   View,
@@ -12,9 +12,9 @@ import {
   Image,
   RefreshControl,
 } from 'react-native';
-import TryAgain from '../components/try_again';
+import {getPriceDetailAction} from '../actions/price_detail_action';
 import Verified from '../components/verified';
-import {getDetailShrimpPrices} from '../services/shrimp_prices_service';
+import {priceDetailReducer} from '../reducers/price_detail_reducer';
 import {Colors} from '../utils/colors';
 import {baseStorageUrl} from '../utils/constant';
 import {
@@ -48,116 +48,78 @@ const PriceDetailScreen = props => {
     id: initPriceId,
   } = params;
 
-  // state
-  const [regency, setRegency] = useState(initRegencyName || '-');
-  const [province, setProvince] = useState(initProvinceName || '');
-  const [updatedAt, setUpdatedAt] = useState(initUpdatedAt);
-  const [isVerified, setIsVerified] = useState(
-    initBuyer === null ? false : initBuyer,
-  );
-  const [name, setName] = useState(initName || '-');
-  const [avatarUrl, setAvatarUrl] = useState(initAvatar || '-');
-  const [contact, setContact] = useState(initPhone || initContact || '-');
-  const [sizes, setSizes] = useState(initPriceList);
-  const [note, setNote] = useState(initMarkId || '-');
-  const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const initialValue = {
+    regency: initRegencyName,
+    province: initProvinceName,
+    updatedAt: initUpdatedAt,
+    isVerified: initBuyer,
+    name: initName,
+    avatarUrl: initAvatar,
+    contact: initPhone || initContact,
+    sizes: initPriceList,
+    note: initMarkId,
+    loading: false,
+    errorMessage: '',
+  };
+
+  const [state, dispatch] = useReducer(priceDetailReducer, initialValue);
 
   useEffect(() => {
-    getDetail();
-  }, [getDetail]);
-
-  // action
-
-  const getDetail = useCallback(async () => {
-    try {
-      setLoading(true);
-      setErrorMessage('');
-      const response = await getDetailShrimpPrices(initPriceId, initRegionId);
-      const {data} = response.data;
-      const {
-        region: {
-          regency_name: remoteRegencyName,
-          province_name: remoteProvinceName,
-        },
-        contact: remoteContact,
-        updated_at: remoteUpdatedAt,
-        creator: {
-          buyer: remoteBuyer,
-          name: remoteName,
-          avatar: remoteAvatar,
-          phone: remotePhone,
-        },
-        remark: remoteMarkId,
-      } = data;
-
-      setRegency(remoteRegencyName);
-      setProvince(remoteProvinceName);
-      setUpdatedAt(remoteUpdatedAt);
-      setIsVerified(remoteBuyer === null ? false : remoteBuyer);
-      setName(remoteName);
-      setAvatarUrl(remoteAvatar);
-      setContact(remotePhone || remoteContact);
-      setSizes(priceListAdapter(data));
-      setNote(remoteMarkId || '-');
-
-      setLoading(false);
-      const shareUrl = `https://app.jala.tech/shrimp_prices/${initPriceId}`;
-      navigation.setParams({
-        shareUrl,
-      });
-    } catch (error) {
-      console.error(error);
-      setErrorMessage(error.toString());
-      setLoading(false);
-      Alert.alert('terjadi kesalahan', error.toString());
-    }
+    getPriceDetailAction({dispatch, initPriceId, initRegionId, navigation});
   }, [initPriceId, initRegionId, navigation]);
+
+  const getDetail = () => {
+    getPriceDetailAction({dispatch, initPriceId, initRegionId, navigation});
+  };
 
   const _onPressHub = async () => {
     try {
-      Linking.openURL(`tel:${contact}`);
+      Linking.openURL(`tel:${state.contact}`);
     } catch (error) {
       Alert.alert('Error', error);
     }
   };
 
+  console.log('render');
+
   return (
     <View style={styles.container}>
       <ScrollView
         refreshControl={
-          <RefreshControl refreshing={loading} onRefresh={getDetail} />
+          <RefreshControl refreshing={state.loading} onRefresh={getDetail} />
         }>
         <View style={styles.region}>
-          <Text style={styles.regionTitle}>{capitalFirstLetter(province)}</Text>
+          <Text style={styles.regionTitle}>
+            {capitalFirstLetter(state.province)}
+          </Text>
           <Text style={styles.regionSubtitle}>
-            {capitalFirstLetter(regency)}
+            {capitalFirstLetter(state.regency)}
           </Text>
         </View>
         <View style={styles.divider} />
         <View style={styles.body}>
           <View style={styles.containerDate}>
             <Text style={styles.date}>
-              {moment(updatedAt).format('DD MMMM YYYY')}
+              {moment(state.updatedAt).format('DD MMMM YYYY')}
             </Text>
-            <Verified isVerified={isVerified} />
+            <Verified isVerified={state.isVerified} />
           </View>
 
           <View style={styles.bio}>
             <Image
-              source={{uri: `${baseStorageUrl}/${avatarUrl}`}}
+              source={{uri: `${baseStorageUrl}/${state.avatarUrl}`}}
               style={styles.photo}
             />
             <View>
               <Text style={styles.labelSupplier}>Supplier</Text>
-              <Text style={styles.supplierName}>{name}</Text>
+              <Text style={styles.supplierName}>{state.name}</Text>
             </View>
           </View>
           <View style={styles.contact}>
             <View>
               <Text style={styles.labelContact}>Kontak</Text>
               <Text style={styles.contactValue}>
-                {phoneNumberMasking(contact)}
+                {phoneNumberMasking(state.contact)}
               </Text>
             </View>
             <TouchableOpacity style={styles.buttonHub} onPress={_onPressHub}>
@@ -165,7 +127,7 @@ const PriceDetailScreen = props => {
             </TouchableOpacity>
           </View>
           <Text style={styles.labelPriceList}>Daftar Harga</Text>
-          {sizes.map((item, index) => {
+          {state.sizes.map((item, index) => {
             return (
               <View key={index.toString()} style={styles.priceItem}>
                 <Text style={styles.sizeName}>{item.name}</Text>
@@ -176,7 +138,7 @@ const PriceDetailScreen = props => {
             );
           })}
           <Text style={styles.labelNote}>Catatan</Text>
-          <Text style={styles.note}>{note}</Text>
+          <Text style={styles.note}>{state.note}</Text>
         </View>
       </ScrollView>
     </View>
