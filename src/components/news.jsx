@@ -1,11 +1,9 @@
-import {useNavigation} from '@react-navigation/native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Alert,
   FlatList,
   RefreshControl,
-  ScrollView,
   StyleSheet,
   Text,
   View,

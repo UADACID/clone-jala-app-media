@@ -1,8 +1,6 @@
-import {useNavigation} from '@react-navigation/native';
-import React, {useCallback, useEffect} from 'react';
-import {Share, Text, View} from 'react-native';
+import React from 'react';
 import {WebView} from 'react-native-webview';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import {baseAppUrl} from '../utils/constant';
 
 const DiseasesDetailScreen = ({route}) => {
   const {id} = route.params;
@@ -10,7 +8,7 @@ const DiseasesDetailScreen = ({route}) => {
   return (
     <WebView
       source={{
-        uri: `https://app.jala.tech/web_view/diseases/${id}`,
+        uri: `${baseAppUrl}/web_view/diseases/${id}`,
       }}
       startInLoadingState={true}
     />

@@ -10,7 +10,7 @@ export const getListShrimpDiseases = page => {
       Authorization: `Bearer ${dummyToken}`,
     },
     params: {
-      per_page: '5',
+      per_page: '15',
       page: page,
       with: 'creator',
     },

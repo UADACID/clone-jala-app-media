@@ -1,5 +1,6 @@
 import {Alert} from 'react-native';
 import {getDetailShrimpPrices} from '../services/shrimp_prices_service';
+import {baseAppUrl} from '../utils/constant';
 import {priceListAdapter} from '../utils/helpers';
 
 export const getPriceDetailAction = async props => {
@@ -44,7 +45,7 @@ export const getPriceDetailAction = async props => {
     };
 
     dispatch({type: 'set_value', paylod: newValue});
-    const shareUrl = `https://app.jala.tech/shrimp_prices/${initPriceId}`;
+    const shareUrl = `${baseAppUrl}/shrimp_prices/${initPriceId}`;
     navigation.setParams({
       shareUrl,
     });
