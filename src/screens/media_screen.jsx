@@ -14,6 +14,7 @@ const MediaScreen = () => {
         name="Price"
         component={Prices}
         options={{
+          lazy: true,
           title: 'Harga Udang',
           tabBarActiveTintColor: Colors.primary,
           tabBarInactiveTintColor: '#737373',
@@ -31,6 +32,7 @@ const MediaScreen = () => {
         name="News"
         component={News}
         options={{
+          lazy: true,
           title: 'Kabar Udang',
           tabBarActiveTintColor: Colors.primary,
           tabBarInactiveTintColor: '#737373',
@@ -48,6 +50,7 @@ const MediaScreen = () => {
         name="Diseases"
         component={Diseases}
         options={{
+          lazy: true,
           title: 'Penyakit',
           tabBarActiveTintColor: Colors.primary,
           tabBarInactiveTintColor: '#737373',

@@ -1,16 +1,24 @@
 import {useNavigation} from '@react-navigation/native';
+import moment from 'moment';
 import React from 'react';
+import {baseStorageUrl} from '../utils/constant';
 import CardItem from './card_item';
 
-const NewsItem = () => {
+const NewsItem = props => {
   const navigation = useNavigation();
   return (
     <CardItem
-      title="Baruno: Alat Kualitas Air Pintar Handal dan Praktis"
-      description="Tahun 2019 telah berlalu, kini tahun 2020 telah memasuki minggu ketiga, memasuki tahun lorempisum dolor sit amet zzzzzzzz"
-      date="30 April 2020"
-      shareContent="link news detail"
-      onPress={() => navigation.navigate('NewsDetail')}
+      title={props.title || 'untitled'}
+      description={props.excerpt || '-'}
+      date={moment(props.createdAt).format('DD MMMM YYYY')}
+      shareContent={`https://app.jala.tech/posts/${props.id}`}
+      imageBannerUrl={`${baseStorageUrl}/${props.image}`}
+      onPress={() =>
+        navigation.navigate('NewsDetail', {
+          ...props,
+          shareUrl: `https://app.jala.tech/posts/${props.id}`,
+        })
+      }
     />
   );
 };
