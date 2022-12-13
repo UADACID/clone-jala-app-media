@@ -47,7 +47,13 @@ const App = () => {
             <RootStack.Group
               screenOptions={props => ({
                 headerRight: () => {
-                  const {shareUrl} = props.route.params;
+                  let shareUrl = '';
+                  if (
+                    props.route.params !== null &&
+                    props.route.params.shareUrl !== undefined
+                  ) {
+                    shareUrl = props.route.params.shareUrl;
+                  }
                   return <ShareButton content={shareUrl} />;
                 },
               })}>
