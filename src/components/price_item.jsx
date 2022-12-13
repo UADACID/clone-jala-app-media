@@ -11,31 +11,32 @@ import Verified from './verified';
 
 const PriceItem = props => {
   const navigation = useNavigation();
-
-  console.log(props);
-
   const name = props.creator.name;
   const avatarUrl = `${baseStorageUrl}/${props.creator.avatar}`;
   const currencyId = props.currency_id;
   const province = props.region.province_name || '-';
   const regency = props.region.regency_name || '-';
   const priceForSize100 = props.size_100 || 0;
-  const createdAt = moment(props.created_at).format('DD MMMM YYYY');
+  const updatedAt = moment(props.updated_at).format('DD MMMM YYYY');
   const isVerified = props.creator.buyer;
+
+  const redirectPriceDetail = () => {
+    navigation.navigate('PriceDetail', {...props});
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View>
           <View style={styles.containerSupplierName}>
-            <Image source={{uri: avatarUrl}} style={styles.photo} he />
+            <Image source={{uri: avatarUrl}} style={styles.photo} />
             <View>
               <Text style={styles.label}>Supplier</Text>
               <Text style={styles.name}>{name}</Text>
             </View>
           </View>
           <View style={styles.containerRegion}>
-            <Text style={styles.label}>{createdAt}</Text>
+            <Text style={styles.label}>{updatedAt}</Text>
             <Text style={styles.subtitleRegion}>
               {capitalFirstLetter(province)}
             </Text>
@@ -53,11 +54,7 @@ const PriceItem = props => {
             {currencyId} {currencyAdapter(priceForSize100)}
           </Text>
         </View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            navigation.navigate('PriceDetail');
-          }}>
+        <TouchableOpacity style={styles.button} onPress={redirectPriceDetail}>
           <Text style={styles.buttonLabel}>LIHAT DETAIL</Text>
         </TouchableOpacity>
       </View>

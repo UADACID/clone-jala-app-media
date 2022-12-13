@@ -1,4 +1,6 @@
-import * as React from 'react';
+import {useNavigation} from '@react-navigation/native';
+import moment from 'moment';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   Text,
   View,
@@ -7,45 +9,114 @@ import {
   ScrollView,
   Linking,
   Alert,
+  Image,
+  RefreshControl,
 } from 'react-native';
+import TryAgain from '../components/try_again';
 import Verified from '../components/verified';
+import {getDetailShrimpPrices} from '../services/shrimp_prices_service';
 import {Colors} from '../utils/colors';
+import {baseStorageUrl} from '../utils/constant';
+import {
+  capitalFirstLetter,
+  currencyAdapter,
+  phoneNumberMasking,
+  priceListAdapter,
+} from '../utils/helpers';
 
-const PriceDetailScreen = () => {
-  const priceList = [
-    {
-      name: 'Size 20',
-      price: 97000,
+const PriceDetailScreen = props => {
+  const {params} = props.route;
+  const navigation = useNavigation();
+
+  // initial value
+  const initPriceList = priceListAdapter(params);
+  const {
+    region: {
+      regency_name: initRegencyName,
+      province_name: initProvinceName,
+      id: initRegionId,
     },
-    {
-      name: 'Size 30',
-      price: 97000,
+    contact: initContact,
+    updated_at: initUpdatedAt,
+    creator: {
+      buyer: initBuyer,
+      name: initName,
+      avatar: initAvatar,
+      phone: initPhone,
     },
-    {
-      name: 'Size 40',
-      price: 97000,
-    },
-    {
-      name: 'Size 50',
-      price: 97000,
-    },
-    {
-      name: 'Size 60',
-      price: 97000,
-    },
-    {
-      name: 'Size 70',
-      price: 97000,
-    },
-    {
-      name: 'Size 80',
-      price: 97000,
-    },
-  ];
+    remark: initMarkId,
+    id: initPriceId,
+  } = params;
+
+  // state
+  const [regency, setRegency] = useState(initRegencyName || '-');
+  const [province, setProvince] = useState(initProvinceName || '');
+  const [updatedAt, setUpdatedAt] = useState(initUpdatedAt);
+  const [isVerified, setIsVerified] = useState(
+    initBuyer === null ? false : initBuyer,
+  );
+  const [name, setName] = useState(initName || '-');
+  const [avatarUrl, setAvatarUrl] = useState(initAvatar || '-');
+  const [contact, setContact] = useState(initPhone || initContact || '-');
+  const [sizes, setSizes] = useState(initPriceList);
+  const [note, setNote] = useState(initMarkId || '-');
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    getDetail();
+  }, [getDetail]);
+
+  // action
+
+  const getDetail = useCallback(async () => {
+    try {
+      setLoading(true);
+      setErrorMessage('');
+      const response = await getDetailShrimpPrices(initPriceId, initRegionId);
+      const {data} = response.data;
+      const {
+        region: {
+          regency_name: remoteRegencyName,
+          province_name: remoteProvinceName,
+        },
+        contact: remoteContact,
+        updated_at: remoteUpdatedAt,
+        creator: {
+          buyer: remoteBuyer,
+          name: remoteName,
+          avatar: remoteAvatar,
+          phone: remotePhone,
+        },
+        remark: remoteMarkId,
+      } = data;
+
+      setRegency(remoteRegencyName);
+      setProvince(remoteProvinceName);
+      setUpdatedAt(remoteUpdatedAt);
+      setIsVerified(remoteBuyer === null ? false : remoteBuyer);
+      setName(remoteName);
+      setAvatarUrl(remoteAvatar);
+      setContact(remotePhone || remoteContact);
+      setSizes(priceListAdapter(data));
+      setNote(remoteMarkId || '-');
+
+      setLoading(false);
+      const shareUrl = `https://app.jala.tech/shrimp_prices/${initPriceId}`;
+      navigation.setParams({
+        shareUrl,
+      });
+    } catch (error) {
+      console.error(error);
+      setErrorMessage(error.toString());
+      setLoading(false);
+      Alert.alert('terjadi kesalahan', error.toString());
+    }
+  }, [initPriceId, initRegionId, navigation]);
 
   const _onPressHub = async () => {
     try {
-      Linking.openURL('tel:6285641560xxx');
+      Linking.openURL(`tel:${contact}`);
     } catch (error) {
       Alert.alert('Error', error);
     }
@@ -53,48 +124,59 @@ const PriceDetailScreen = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={getDetail} />
+        }>
         <View style={styles.region}>
-          <Text style={styles.regionTitle}>Nusa Tenggara</Text>
-          <Text style={styles.regionSubtitle}>Sumba</Text>
+          <Text style={styles.regionTitle}>{capitalFirstLetter(province)}</Text>
+          <Text style={styles.regionSubtitle}>
+            {capitalFirstLetter(regency)}
+          </Text>
         </View>
         <View style={styles.divider} />
         <View style={styles.body}>
           <View style={styles.containerDate}>
-            <Text style={styles.date}>16 Januari 2020</Text>
-            <Verified />
+            <Text style={styles.date}>
+              {moment(updatedAt).format('DD MMMM YYYY')}
+            </Text>
+            <Verified isVerified={isVerified} />
           </View>
 
           <View style={styles.bio}>
-            <View style={styles.photo} />
+            <Image
+              source={{uri: `${baseStorageUrl}/${avatarUrl}`}}
+              style={styles.photo}
+            />
             <View>
               <Text style={styles.labelSupplier}>Supplier</Text>
-              <Text style={styles.supplierName}>Mina Udang Barokah</Text>
+              <Text style={styles.supplierName}>{name}</Text>
             </View>
           </View>
           <View style={styles.contact}>
             <View>
               <Text style={styles.labelContact}>Kontak</Text>
-              <Text style={styles.contactValue}>+6285641560XXX</Text>
+              <Text style={styles.contactValue}>
+                {phoneNumberMasking(contact)}
+              </Text>
             </View>
             <TouchableOpacity style={styles.buttonHub} onPress={_onPressHub}>
               <Text style={styles.labelButtonHub}>Hubungi</Text>
             </TouchableOpacity>
           </View>
           <Text style={styles.labelPriceList}>Daftar Harga</Text>
-          {priceList.map((item, index) => {
+          {sizes.map((item, index) => {
             return (
               <View key={index.toString()} style={styles.priceItem}>
                 <Text style={styles.sizeName}>{item.name}</Text>
-                <Text style={styles.sizePrice}>RP {item.price}</Text>
+                <Text style={styles.sizePrice}>
+                  RP {currencyAdapter(item.price)}
+                </Text>
               </View>
             );
           })}
           <Text style={styles.labelNote}>Catatan</Text>
-          <Text style={styles.note}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry
-          </Text>
+          <Text style={styles.note}>{note}</Text>
         </View>
       </ScrollView>
     </View>
@@ -190,7 +272,9 @@ const styles = StyleSheet.create({
   },
   priceItem: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    width: 200,
+    alignItems: 'center',
     alignSelf: 'flex-start',
     paddingVertical: 8,
   },

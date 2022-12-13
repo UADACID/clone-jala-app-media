@@ -20,7 +20,7 @@ import PriceDetailScreen from './src/screens/price_detail_screen';
 import {RootStackParamList} from './src/types';
 import {Colors} from './src/utils/colors';
 
-const RootStack = createNativeStackNavigator<RootStackParamList>();
+const RootStack = createNativeStackNavigator();
 
 const App = () => {
   return (
@@ -42,9 +42,12 @@ const App = () => {
             options={{title: 'Jala Media'}}
           />
           <RootStack.Group
-            screenOptions={{
-              headerRight: () => <ShareButton />,
-            }}>
+            screenOptions={props => ({
+              headerRight: () => {
+                const {shareUrl} = props.route.params;
+                return <ShareButton content={shareUrl} />;
+              },
+            })}>
             <RootStack.Screen
               name="PriceDetail"
               component={PriceDetailScreen}

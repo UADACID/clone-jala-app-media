@@ -12,3 +12,14 @@ export const getListShrimpPrices = async page => {
     },
   });
 };
+
+export const getDetailShrimpPrices = async (priceId, regionId) => {
+  return axios({
+    method: 'get',
+    url: `${baseApiUrl}/shrimp_prices/${priceId}`,
+    params: {
+      with: 'region,creator',
+      region_id: regionId,
+    },
+  });
+};

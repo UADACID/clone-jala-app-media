@@ -14,6 +14,7 @@ import {Colors} from '../utils/colors';
 import {delay} from '../utils/helpers';
 import FloatingPriceFilter from './floating_price_filter';
 import PriceItem from './price_item';
+import TryAgain from './try_again';
 
 const Prices = () => {
   const [list, setList] = useState([]);
@@ -77,16 +78,7 @@ const Prices = () => {
 
   // render if error on initial action
   if (!loading && list.length === 0 && errorMessage !== '') {
-    return (
-      <View style={styles.containerError}>
-        <Text style={styles.errorMessage}>{errorMessage}</Text>
-        <TouchableOpacity
-          style={styles.buttonTryAgain}
-          onPress={getInitialList}>
-          <Text style={styles.textButtonTryAgain}>coba lagi</Text>
-        </TouchableOpacity>
-      </View>
-    );
+    return <TryAgain message={errorMessage} onTryAgain={getInitialList} />;
   }
 
   const renderItem = ({item}) => (

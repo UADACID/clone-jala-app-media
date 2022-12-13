@@ -19,3 +19,29 @@ export const currencyAdapter = number => {
   const numberToStr = number.toString();
   return numberToStr.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
 };
+
+export const priceListAdapter = args => {
+  const listOfSize = Array.from({length: 19}, (_, i) => i * 10 + 20);
+
+  const finalList = listOfSize.map(size => {
+    const keyOfSize = `size_${size}`;
+    return {
+      name: `Size ${size}`,
+      price: args[keyOfSize] || '-',
+    };
+  });
+
+  return finalList;
+};
+
+export const phoneNumberMasking = phoneNumber => {
+  if (
+    phoneNumber === null ||
+    phoneNumber === '-' ||
+    phoneNumber === '' ||
+    phoneNumber.length < 5
+  ) {
+    return phoneNumber;
+  }
+  return phoneNumber.substr(0, phoneNumber.length - 3) + 'XXX';
+};
